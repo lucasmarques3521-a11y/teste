@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comissões OLUC</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Sistema de Comissões OLUC</h1>
+    <p>Painel administrativo</p>
+  </header>
+
+  <main>
+    <section id="login-section" class="card">
+      <h2>Acesso</h2>
+      <form id="login-form" class="grid-form">
+        <label>
+          Usuário
+          <input type="text" id="username" required />
+        </label>
+        <label>
+          Senha
+          <input type="password" id="password" required />
+        </label>
+        <button type="submit" class="btn-primary">Entrar</button>
+      </form>
+      <p id="login-feedback" class="feedback"></p>
+      <small>Credenciais: admin / 123456</small>
+    </section>
+
+    <section id="app-section" class="hidden">
+      <nav class="tabs">
+        <button type="button" class="tab active" data-tab="supervisor">Supervisor</button>
+        <button type="button" class="tab" data-tab="coletor">Motorista Coletor</button>
+      </nav>
+
+      <article id="supervisor" class="tab-content card active">
+        <h2>Cálculo de Comissão - Supervisor</h2>
+        <form id="supervisor-form" class="grid-form">
+          <label>
+            Meta do período (L)
+            <input type="number" id="sup-meta" min="0" step="0.01" required />
+          </label>
+          <label>
+            Volume coletado (L)
+            <input type="number" id="sup-volume" min="0" step="0.01" required />
+          </label>
+          <label>
+            Valor médio de compra (R$/L)
+            <input type="number" id="sup-price" min="0" step="0.0001" required />
+          </label>
+
+          <fieldset>
+            <legend>Qualidade (ponto de fulgor)</legend>
+            <label class="inline">
+              <input type="checkbox" id="sup-flash-ok" />
+              Atingiu mínimo de 180°C
+            </label>
+            <label class="inline">
+              <input type="checkbox" id="sup-manager-override" />
+              Gestor validou comissão de qualidade
+            </label>
+          </fieldset>
+
+          <button type="submit" class="btn-primary">Calcular comissão do Supervisor</button>
+        </form>
+        <div id="supervisor-result" class="result-box"></div>
+      </article>
+
+      <article id="coletor" class="tab-content card">
+        <h2>Cálculo de Comissão - Motorista Coletor</h2>
+        <form id="coletor-form" class="grid-form">
+          <label>
+            Volume coletado no período (L)
+            <input type="number" id="col-volume" min="0" step="0.01" required />
+          </label>
+          <label>
+            Volume coletado no mês anterior (L)
+            <input type="number" id="col-volume-prev" min="0" step="0.01" required />
+          </label>
+          <label>
+            Valor médio de compra (R$/L)
+            <input type="number" id="col-price" min="0" step="0.0001" required />
+          </label>
+
+          <fieldset>
+            <legend>Indicadores condicionais</legend>
+            <label class="inline"><input type="checkbox" id="col-meta-ok" /> Atingiu meta mensal</label>
+            <label class="inline"><input type="checkbox" id="col-fuel-avg-ok" /> Dentro do consumo médio de combustível</label>
+            <label class="inline"><input type="checkbox" id="col-consumption-l-ok" /> Dentro do consumo médio por litro</label>
+            <label class="inline"><input type="checkbox" id="col-maintenance-ok" /> Sem avarias/manutenções recorrentes</label>
+          </fieldset>
+
+          <button type="submit" class="btn-primary">Calcular comissão do Coletor</button>
+        </form>
+        <div id="coletor-result" class="result-box"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
